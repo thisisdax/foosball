@@ -1,0 +1,21 @@
+<%= form_for(user) do |f| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.text_field :first_name, label: 'First Name', placeholder: 'First Name'%>
+  <%= f.text_field :last_name, label: 'Last Name', placeholder: 'Last Name'%>
+  <% if @team != nil %>
+    <label>Team:</label><%= select(:member, :team_id, @team) %>
+  <% end %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
