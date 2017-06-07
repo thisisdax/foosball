@@ -10,6 +10,12 @@
       </ul>
     </div>
   <% end %>
+  <% if @team != nil %>
+
+  <% end %>
+  <label>Home Team:</label><%= select(:member, :team_id, @team) %>
+  VS
+  <label>Away Team:</label><%= select(:member, :team_id, @team) %>
 
   <div class="actions">
     <%= f.submit %>

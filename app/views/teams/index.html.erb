@@ -3,25 +3,26 @@
 <h1>Teams</h1>
 <div class="row">
   <% @teams.each do |team| %>
-  <div class="col-sm-4">
-    <div class="card">
-      <div class="card-block">
-        <h3 class="card-title"><%= team.team_name %></h3>
-        <% if Member.where(team_id: team.id).length === 0 %>
-        <h4 class="card-text">Members: None</h4>
-        <% else %>
-          <% Member.where(team_id: team.id).each do |d| %>
-            <% User.where(id: d.user_id).each do |g| %>
-              <h4 class="card-text">Members: <%= g.first_name + ' ' + g.last_name %></h4>
+    <% if team.id != 1 %>
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-block">
+            <h3 class="card-title"><%= team.team_name %></h3>
+            <% if Member.where(team_id: team.id).length == 0%>
+            <h4 class="card-text">Members: None</h4>
+            <% else %>
+              <% Member.where(team_id: team.id).each do |d| %>
+                <% User.where(id: d.user_id).each do |g| %>
+                  <h4 class="card-text">Members: <%= g.first_name + ' ' + g.last_name %></h4>
+                <% end %>
+              <% end %>
             <% end %>
-          <% end %>
-        <% end %>
-        <%= link_to 'Show', team, :class=> "btn" %>
-        <%= link_to 'Edit', edit_team_path(team), :class=> "btn" %>
-        <%= link_to 'Destroy', team, :class=> "btn", method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%= link_to 'Edit', edit_team_path(team), :class=> "btn" %>
+            <%= link_to 'Destroy', team, :class=> "btn", method: :delete, data: { confirm: 'Are you sure?' } %>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    <% end %>
   <% end %>
 </div>
 

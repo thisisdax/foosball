@@ -7,14 +7,13 @@
     <div class="card">
       <div class="card-block">
         <h3 class="card-title"><%= user.first_name + ' ' + user.last_name %></h3>
-        <% if Member.where(user_id: user.id).length === 0 %>
-        <h4 class="card-text">Team: None</h4>
+        <% if Member.where(user_id: user.id).length == 0 %>
+          <h4 class="card-text">Team: None</h4>
         <% else %>
-        <% Team.where(id: Member.where(user_id: user.id)).each do |d| %>
-          <h4 class="card-text">Team: <%= d.team_name %></h4>
+          <% Team.where(id: Member.where(user_id: user.id).first.team_id).each do |d| %>
+            <h4 class="card-text">Team: <%= d.team_name %></h4>
+          <% end %>
         <% end %>
-        <% end %>
-        <%= link_to 'Show', user, :class=> "btn" %>
         <%= link_to 'Edit', edit_user_path(user), :class=> "btn" %>
         <%= link_to 'Destroy', user, :class=> "btn", method: :delete, data: { confirm: 'Are you sure?' } %>
       </div>

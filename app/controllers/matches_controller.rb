@@ -15,6 +15,7 @@ class MatchesController < ApplicationController
   # GET /matches/new
   def new
     @match = Match.new
+    @team = Team.all.map{ |team| [team.team_name, team.id] }
   end
 
   # GET /matches/1/edit
