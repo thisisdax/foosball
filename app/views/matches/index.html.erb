@@ -11,10 +11,13 @@
 
   <tbody>
     <% @matches.each do |match| %>
+    <%= Team.where(id: match.team_id).first.team_name %>
+    VS
+    <%= Team.where(id: match.away_id).first.team_name %>
       <tr>
-        <td><%= link_to 'Show', match %></td>
-        <td><%= link_to 'Edit', edit_match_path(match) %></td>
-        <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show Results', match, :class=> "btn", :match => match.id %></td>
+        <!-- <td><%= link_to 'Edit', edit_match_path(match) %></td> -->
+        <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' }, :class=> "btn" %></td>
       </tr>
     <% end %>
   </tbody>

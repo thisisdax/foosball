@@ -10,6 +10,9 @@ class MatchesController < ApplicationController
   # GET /matches/1
   # GET /matches/1.json
   def show
+    @game = Game.where(match_id: params[:id]).first
+    @match = Match.where(id: params[:id]).first
+    getscore
   end
 
   # GET /matches/new
@@ -62,6 +65,20 @@ class MatchesController < ApplicationController
     end
   end
 
+  def getscore
+    if Game.where(match_id: @match.id).length == 0
+      teamone = rand(11)
+      teamtwo = rand(11)
+      if teamone > teamtwo
+        @game = Game.create(match_id: @match.id, result: @match.team_id, team_score: teamone, away_score: teamtwo)
+      elsif teamtwo > teamone
+        @game = Game.create(match_id: @match.id, result: @match.away_id, team_score: teamone, away_score: teamtwo)
+      else
+        @game = Game.create(match_id: @match.id, result: 0, team_score: teamone, away_score: teamtwo)
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_match
@@ -70,6 +87,6 @@ class MatchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def match_params
-      params.fetch(:match, {})
+      params.require(:match).permit(:team_id, :away_id)
     end
 end

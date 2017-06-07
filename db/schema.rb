@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(version: 20170604082057) do
   create_table "games", force: :cascade do |t|
     t.integer  "match_id"
     t.string   "result"
+    t.integer "team_score"
+    t.integer "away_score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
